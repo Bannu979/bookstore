@@ -20,6 +20,7 @@ if (!process.env.MONGO_URI) {
   console.log('MONGO_URI=mongodb://localhost:27017/bookstore');
   console.log('PORT=5000');
   console.log('NODE_ENV=development');
+  console.log('CORS_ORIGIN=http://localhost:3000');
   process.exit(1);
 }
 
@@ -27,11 +28,22 @@ connectDB();
 
 const app = express();
 
+const whitelist =
+  process.env.NODE_ENV === 'production'
+    ? ['https://bookstore-1fuj.vercel.app']
+    : ['http://localhost:3000', 'http://localhost:3001'];
+
+console.log('CORS whitelist:', whitelist);
+
 // CORS configuration - MUST BE FIRST, before any other middleware
 app.use(cors({
-  origin: process.env.NODE_ENV === 'production' 
-    ? ['https://your-frontend-domain.com'] 
-    : ['http://localhost:3000', 'http://localhost:3001', 'http://127.0.0.1:3000'],
+  origin: function (origin, callback) {
+    if (whitelist.indexOf(origin) !== -1 || !origin) {
+      callback(null, true);
+    } else {
+      callback(new Error('Not allowed by CORS'));
+    }
+  },
   credentials: true,
   methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
   allowedHeaders: ['Content-Type', 'Authorization']
