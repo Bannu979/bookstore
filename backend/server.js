@@ -64,6 +64,16 @@ if (process.env.NODE_ENV === 'development') {
 app.use(express.json({ limit: '10mb' }));
 app.use(express.urlencoded({ extended: true, limit: '10mb' }));
 
+// Welcome route for the root URL
+app.get('/', (req, res) => {
+  res.status(200).json({
+    message: 'Welcome to the Book Store API! 🎉',
+    version: '1.0.0',
+    documentation: 'Visit /api for endpoint details.',
+    healthCheck: '/health'
+  });
+});
+
 // Routes
 app.use('/api/books', bookRoutes);
 
