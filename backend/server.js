@@ -28,29 +28,30 @@ connectDB();
 
 const app = express();
 
-const whitelist =
-  process.env.NODE_ENV === 'production'
-    ? [
-        'https://bookstore-1fuj.vercel.app',
-        'https://bookstore-1fuj-6mho7xza4-bprabhas979-gmailcoms-projects.vercel.app',
-      ]
-    : ['http://localhost:3000', 'http://localhost:3001'];
+const dynamicWhitelist = [
+  'http://localhost:3000',
+  'http://localhost:3001',
+  /^https:\/\/bookstore-1fuj(-[a-zA-Z0-9]+-bprabhas979-gmailcoms-projects)?\.vercel\.app$/, // Main URL + any preview URL
+];
 
-console.log('CORS whitelist:', whitelist);
+console.log('CORS whitelist:', dynamicWhitelist);
 
 // CORS configuration - MUST BE FIRST, before any other middleware
-app.use(cors({
-  origin: function (origin, callback) {
-    if (whitelist.indexOf(origin) !== -1 || !origin) {
-      callback(null, true);
-    } else {
-      callback(new Error('Not allowed by CORS'));
-    }
-  },
-  credentials: true,
-  methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
-  allowedHeaders: ['Content-Type', 'Authorization']
-}));
+app.use(
+  cors({
+    origin: function (origin, callback) {
+      // The `!origin` check allows REST tools and server-to-server requests.
+      if (!origin || dynamicWhitelist.some(o => (o instanceof RegExp ? o.test(origin) : o === origin))) {
+        callback(null, true);
+      } else {
+        callback(new Error('Not allowed by CORS'));
+      }
+    },
+    credentials: true,
+    methods: ['GET', 'POST', 'PUT', 'DELETE', 'OPTIONS'],
+    allowedHeaders: ['Content-Type', 'Authorization'],
+  })
+);
 
 // Security middleware
 app.use(helmet());
