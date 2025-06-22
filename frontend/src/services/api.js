@@ -2,8 +2,11 @@ import axios from 'axios';
 
 const API_BASE_URL = process.env.REACT_APP_API_URL || 'https://bookstore-opal-seven.vercel.app';
 
+// Ensure no trailing slash on the base URL before appending /api
+const cleanedBaseUrl = API_BASE_URL.replace(/\/$/, '');
+
 const api = axios.create({
-  baseURL: `${API_BASE_URL}/api`,
+  baseURL: `${cleanedBaseUrl}/api`,
   timeout: 10000,
   headers: {
     'Content-Type': 'application/json',
