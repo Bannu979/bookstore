@@ -1,19 +1,8 @@
 import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
-import { 
-  FaSearch, 
-  FaFilter, 
-  FaSort, 
-  FaEdit, 
-  FaTrash, 
-  FaEye,
-  FaBook,
-  FaUser,
-  FaCalendar,
-  FaDollarSign,
-  FaTag
-} from 'react-icons/fa';
+// import { FaBook, FaFilter, FaSearch, FaSort, FaTag } from 'react-icons/fa';
+import { FaSearch, FaFilter, FaSort, FaBook, FaTag } from 'react-icons/fa';
 import { bookAPI } from '../services/api';
 import toast from 'react-hot-toast';
 import BookCard from './BookCard';
@@ -138,7 +127,7 @@ const BookList = () => {
         >
           <div className="header-content">
             <div>
-              <h1 className="page-title">📚 Book Collection</h1>
+              <h1 className="page-title">�� Book Collection</h1>
               <p className="page-subtitle">
                 Discover and manage your literary treasures
               </p>
