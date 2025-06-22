@@ -30,7 +30,7 @@ const app = express();
 
 const whitelist =
   process.env.NODE_ENV === 'production'
-    ? ['https://bookstore-1fuj.vercel.app']
+    ? ['https://bookstore-1fuj.vercel.app/']
     : ['http://localhost:3000', 'http://localhost:3001'];
 
 console.log('CORS whitelist:', whitelist);
