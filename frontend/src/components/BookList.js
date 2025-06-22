@@ -2,7 +2,7 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { motion, AnimatePresence } from 'framer-motion';
 import { Link } from 'react-router-dom';
 // import { FaBook, FaFilter, FaSearch, FaSort, FaTag } from 'react-icons/fa';
-import { FaSearch, FaFilter, FaSort, FaBook, FaTag } from 'react-icons/fa';
+import { FaSearch, FaFilter, FaSort, FaBook, FaTag, FaDollarSign } from 'react-icons/fa';
 import { bookAPI } from '../services/api';
 import toast from 'react-hot-toast';
 import BookCard from './BookCard';

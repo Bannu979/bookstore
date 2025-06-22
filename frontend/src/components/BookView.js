@@ -13,7 +13,6 @@ import {
   FaTrash,
   FaUser,
 } from 'react-icons/fa';
-import { FaSearch, FaFilter, FaSort, FaTag } from 'react-icons/fa';
 import { bookAPI } from '../services/api';
 import './BookView.css';
 
