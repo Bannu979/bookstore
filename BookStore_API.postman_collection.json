@@ -1,0 +1,211 @@
+{
+  "info": {
+    "name": "BookStore API",
+    "description": "A comprehensive REST API for managing a book store with full CRUD operations, filtering, pagination, and statistics.",
+    "schema": "https://schema.getpostman.com/json/collection/v2.1.0/collection.json",
+    "version": "1.0.0"
+  },
+  "variable": [
+    {
+      "key": "baseUrl",
+      "value": "http://localhost:5000/api",
+      "type": "string"
+    }
+  ],
+  "item": [
+    {
+      "name": "Health Check",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/../health",
+          "host": ["{{baseUrl}}", "..", "health"]
+        },
+        "description": "Check if the API is running and healthy"
+      }
+    },
+    {
+      "name": "API Documentation",
+      "request": {
+        "method": "GET",
+        "header": [],
+        "url": {
+          "raw": "{{baseUrl}}/..",
+          "host": ["{{baseUrl}}", ".."]
+        },
+        "description": "Get API documentation and available endpoints"
+      }
+    },
+    {
+      "name": "Books",
+      "item": [
+        {
+          "name": "Get All Books",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books?page=1&limit=10&sort=createdAt&order=desc",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"],
+              "query": [
+                {
+                  "key": "page",
+                  "value": "1",
+                  "description": "Page number (default: 1)"
+                },
+                {
+                  "key": "limit",
+                  "value": "10",
+                  "description": "Items per page (default: 10, max: 100)"
+                },
+                {
+                  "key": "sort",
+                  "value": "createdAt",
+                  "description": "Sort field (title, author, price, publishedDate, createdAt, updatedAt)"
+                },
+                {
+                  "key": "order",
+                  "value": "desc",
+                  "description": "Sort order (asc, desc)"
+                },
+                {
+                  "key": "genre",
+                  "value": "Fiction",
+                  "description": "Filter by genre (optional)"
+                },
+                {
+                  "key": "search",
+                  "value": "gatsby",
+                  "description": "Search in title and author (optional)"
+                },
+                {
+                  "key": "minPrice",
+                  "value": "10",
+                  "description": "Minimum price filter (optional)"
+                },
+                {
+                  "key": "maxPrice",
+                  "value": "50",
+                  "description": "Maximum price filter (optional)"
+                }
+              ]
+            },
+            "description": "Get all books with optional filtering, sorting, and pagination"
+          }
+        },
+        {
+          "name": "Get Book by ID",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/{{bookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "{{bookId}}"]
+            },
+            "description": "Get a specific book by its ID"
+          }
+        },
+        {
+          "name": "Create Book",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"The Great Gatsby\",\n  \"author\": \"F. Scott Fitzgerald\",\n  \"price\": 12.99,\n  \"publishedDate\": \"1925-04-10\",\n  \"isbn\": \"9780743273565\",\n  \"genre\": \"Fiction\",\n  \"description\": \"A story of the fabulously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.\",\n  \"coverImage\": \"https://example.com/gatsby-cover.jpg\",\n  \"stock\": 25\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Create a new book"
+          }
+        },
+        {
+          "name": "Update Book",
+          "request": {
+            "method": "PUT",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "{\n  \"title\": \"The Great Gatsby (Updated)\",\n  \"author\": \"F. Scott Fitzgerald\",\n  \"price\": 14.99,\n  \"publishedDate\": \"1925-04-10\",\n  \"isbn\": \"9780743273565\",\n  \"genre\": \"Fiction\",\n  \"description\": \"A story of the fabulously wealthy Jay Gatsby and his love for the beautiful Daisy Buchanan.\",\n  \"coverImage\": \"https://example.com/gatsby-cover.jpg\",\n  \"stock\": 30\n}"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books/{{bookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "{{bookId}}"]
+            },
+            "description": "Update an existing book"
+          }
+        },
+        {
+          "name": "Delete Book",
+          "request": {
+            "method": "DELETE",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/{{bookId}}",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "{{bookId}}"]
+            },
+            "description": "Delete a book by its ID"
+          }
+        },
+        {
+          "name": "Get Book Statistics",
+          "request": {
+            "method": "GET",
+            "header": [],
+            "url": {
+              "raw": "{{baseUrl}}/books/stats",
+              "host": ["{{baseUrl}}"],
+              "path": ["books", "stats"]
+            },
+            "description": "Get comprehensive statistics about the book collection"
+          }
+        }
+      ]
+    },
+    {
+      "name": "Sample Data",
+      "item": [
+        {
+          "name": "Create Sample Books",
+          "request": {
+            "method": "POST",
+            "header": [
+              {
+                "key": "Content-Type",
+                "value": "application/json"
+              }
+            ],
+            "body": {
+              "mode": "raw",
+              "raw": "[\n  {\n    \"title\": \"To Kill a Mockingbird\",\n    \"author\": \"Harper Lee\",\n    \"price\": 9.99,\n    \"publishedDate\": \"1960-07-11\",\n    \"isbn\": \"9780446310789\",\n    \"genre\": \"Fiction\",\n    \"description\": \"The story of young Scout Finch and her father Atticus in a racially divided Alabama town.\",\n    \"stock\": 15\n  },\n  {\n    \"title\": \"1984\",\n    \"author\": \"George Orwell\",\n    \"price\": 11.99,\n    \"publishedDate\": \"1949-06-08\",\n    \"isbn\": \"9780451524935\",\n    \"genre\": \"Science Fiction\",\n    \"description\": \"A dystopian novel about totalitarianism and surveillance society.\",\n    \"stock\": 20\n  },\n  {\n    \"title\": \"Pride and Prejudice\",\n    \"author\": \"Jane Austen\",\n    \"price\": 8.99,\n    \"publishedDate\": \"1813-01-28\",\n    \"isbn\": \"9780141439518\",\n    \"genre\": \"Romance\",\n    \"description\": \"A classic romance novel about the relationship between Elizabeth Bennet and Mr. Darcy.\",\n    \"stock\": 12\n  },\n  {\n    \"title\": \"The Hobbit\",\n    \"author\": \"J.R.R. Tolkien\",\n    \"price\": 13.99,\n    \"publishedDate\": \"1937-09-21\",\n    \"isbn\": \"9780547928241\",\n    \"genre\": \"Fiction\",\n    \"description\": \"A fantasy novel about Bilbo Baggins' journey with thirteen dwarves.\",\n    \"stock\": 18\n  },\n  {\n    \"title\": \"Steve Jobs\",\n    \"author\": \"Walter Isaacson\",\n    \"price\": 16.99,\n    \"publishedDate\": \"2011-10-24\",\n    \"isbn\": \"9781451648539\",\n    \"genre\": \"Biography\",\n    \"description\": \"The biography of Apple co-founder Steve Jobs.\",\n    \"stock\": 10\n  }\n]"
+            },
+            "url": {
+              "raw": "{{baseUrl}}/books",
+              "host": ["{{baseUrl}}"],
+              "path": ["books"]
+            },
+            "description": "Create multiple sample books for testing"
+          }
+        }
+      ]
+    }
+  ]
+} 
