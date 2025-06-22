@@ -3,17 +3,17 @@ import React, { useState, useEffect, useCallback } from 'react';
 import { useParams, useNavigate } from 'react-router-dom';
 import { motion } from 'framer-motion';
 import { toast } from 'react-hot-toast';
-// import { 
-//   FaArrowLeft,
-//   FaBook, 
-//   FaCalendar, 
-//   FaDollarSign, 
-//   FaEdit,
-//   FaEye,
-//   FaTrash,
-//   FaUser
-// } from 'react-icons/fa';
-import { FaSearch, FaFilter, FaSort, FaBook, FaTag } from 'react-icons/fa';
+import {
+  FaArrowLeft,
+  FaBook,
+  FaCalendar,
+  FaDollarSign,
+  FaEdit,
+  FaEye,
+  FaTrash,
+  FaUser,
+} from 'react-icons/fa';
+import { FaSearch, FaFilter, FaSort, FaTag } from 'react-icons/fa';
 import { bookAPI } from '../services/api';
 import './BookView.css';
 
